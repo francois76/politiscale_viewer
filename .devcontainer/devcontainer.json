@@ -1,0 +1,24 @@
+{
+    "name": "Portfolio Development Environment",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "bradlc.vscode-tailwindcss",
+                "csstools.postcss",
+                "formulahendry.auto-rename-tag",
+                "ms-vscode.vscode-typescript-next"
+            ]
+        }
+    },
+    "forwardPorts": [
+        5173
+    ]
+}

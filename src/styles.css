@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette Primary  */
+  --color-primary-300: #9fb3c8;
+  --color-primary-400: #829ab1;
+  --color-primary-500: #658299;
+  --color-primary-600: #496080;
+  --color-primary-700: #344966;
+  --color-primary-800: #253649;
+  --color-primary-900: #1a252f;
+
+  /* Palette Secondary */
+  --color-secondary-600: #bfcc94;
+  --color-secondary-700: #8fa36a;
+  --color-secondary-800: #748653;
+
+  /* Palette Neutral */
+  --color-neutral-50: #f0f4ef;
+  --color-neutral-600: #5f6b5a;
+  --color-neutral-700: #4a5445;
+  --color-neutral-800: #0d1821;
+
+  /* Couleurs Success */
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Couleurs Error  */
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
+  --color-error-300: #fca5a5;
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+  --color-error-800: #991b1b;
+  --color-error-900: #7f1d1d;
+
+  /* Couleurs Info  */
+  --color-info-50: #f0f7ff;
+  --color-info-100: #e0efff;
+  --color-info-200: #c7e2ff;
+  --color-info-300: #b4cded;
+  --color-info-400: #8bb5e8;
+  --color-info-500: #6ba3e3;
+  --color-info-600: #4a8fd8;
+  --color-info-700: #3b7bc9;
+  --color-info-800: #2d5aa0;
+  --color-info-900: #1e3a6f;
+
+  /* Couleurs système */
+  --color-background-primary: var(--color-neutral-50);
+  --color-background-secondary: #fafbfa;
+  --color-background-tertiary: #f5f7f5;
+  --color-background-dark: var(--color-neutral-800);
+
+  --color-text-primary: var(--color-neutral-800);
+  --color-text-secondary: var(--color-primary-700);
+  --color-text-tertiary: #5a683f;
+  --color-text-inverse: var(--color-neutral-50);
+  --color-text-muted: #7a8576;
+
+  --color-border-light: #e8ebe7;
+  --color-border-medium: #d1d6cf;
+  --color-border-dark: #b8c0b5;
+  --color-border-accent: var(--color-info-300);
+}
+
+:root {
+  --color-accent-mint: #a8d8a8;
+  --color-accent-lavender: #c8b9db;
+  --color-accent-peach: #f4c2a1;
+  --color-accent-coral: #ff8a80;
+  --color-accent-gold: #ffd54f;
+  --color-accent-teal: #4db6ac;
+  --color-nuance-orange: #f2970f;
+  --color-nuance-red: #ff5252;
+  --color-nuance-blue: #42a5f5;
+
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+}
