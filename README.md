@@ -13,87 +13,91 @@ Une application web interactive pour visualiser les résultats du test politique
 
 ## 🛠️ Technologies
 
-- **Runtime** : Bun
-- **Framework** : React 18 + TypeScript
+- **Framework** : React 19 + TypeScript
+- **Build** : Vite
 - **3D** : Three.js
 - **Styling** : Tailwind CSS
 - **Icons** : Lucide React
 
 ## 📋 Pré-requis
 
-- [Bun](https://bun.sh/) v1.0+
-- Node.js 18+ (optionnel, pour compatibilité)
+- Node.js 18+
+- Bun
 
 ## 🏁 Installation
 
 1. **Cloner le projet**
+
 ```bash
 git clone <url-du-repo>
-cd politiscales-3d-visualizer
+cd politiscale_viewer
 ```
 
 2. **Installer les dépendances**
+
 ```bash
 bun install
 ```
 
 3. **Lancer en développement**
+
 ```bash
-bun run dev
+bun dev
 ```
 
 4. **Ouvrir dans le navigateur**
+
 ```
-http://localhost:3000
+http://localhost:5173
 ```
 
 ## 📦 Scripts disponibles
 
 ```bash
 # Développement avec hot reload
-bun run dev
+bun dev
 
 # Build pour production
-bun run build
+bun build
 
-# Lancer en production
-bun run start
+# Preview du build
+bun preview
 
-# Vérification TypeScript
-bun run type-check
+# Lint du code
+bun lint
 ```
 
 ## 📁 Structure du projet
 
 ```
-├── public/
-│   └── index.html          # Point d'entrée HTML
 ├── src/
 │   ├── components/         # Composants React
 │   ├── App.tsx            # Composant principal
-│   ├── index.tsx          # Point d'entrée React
-│   ├── index.css          # Styles globaux
-│   └── server.ts          # Serveur de développement
+│   └── main.tsx           # Point d'entrée React
+├── public/                # Assets statiques
 ├── package.json
+├── vite.config.ts
 ├── tsconfig.json
-├── tailwind.config.js
 └── README.md
 ```
 
 ## 🎮 Utilisation
 
 ### Ajouter des données
+
 1. Cliquer sur "Ajouter une entrée"
 2. Remplir le pseudo et choisir une couleur
 3. Saisir les valeurs pour chaque axe (0-100%)
 4. Valider pour ajouter au graphique
 
 ### Navigation 3D
+
 - **Rotation** : Clic + glisser
 - **Zoom** : Molette de la souris
 - **Survol** : Affiche les détails du point
 
 ### Gestion des données
+
 - **Export CSV** : Sauvegarde toutes les entrées
 - **Import CSV** : Charge des données externes
 - **Reset** : Supprime toutes les données
@@ -113,14 +117,14 @@ L'application supporte les 8 axes du test PolitiScales :
 
 ## 🔧 Configuration
 
-### Tailwind CSS
-Les couleurs et styles sont configurables dans `tailwind.config.js`.
-
 ### TypeScript
+
 Configuration dans `tsconfig.json` avec support des imports absolus.
 
 ### Serveur de développement
+
 Le serveur Bun personnalisé dans `src/server.ts` gère :
+
 - Hot reload automatique
 - Serveur de fichiers statiques
 - Routing SPA
@@ -128,21 +132,20 @@ Le serveur Bun personnalisé dans `src/server.ts` gère :
 ## 🚀 Déploiement
 
 ### Build de production
+
 ```bash
-bun run build
+bun build
 ```
 
-### Serveur de production
+### Preview local
+
 ```bash
-bun run start
+bun preview
 ```
 
 ### Déploiement cloud
-Compatible avec :
-- Vercel
-- Netlify
-- Railway
-- Heroku (avec buildpack Bun)
+
+Déployé sur vercel
 
 ## 🤝 Contribution
 
@@ -152,26 +155,4 @@ Compatible avec :
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrir une Pull Request
 
-## 📝 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
 ## 🐛 Bugs connus
-
-- Les clusters très petits peuvent ne pas s'afficher correctement
-- Performance limitée avec plus de 1000 points de données
-
-## 🔮 Roadmap
-
-- [ ] Amélioration de l'algorithme ACP
-- [ ] Export d'images de la visualisation
-- [ ] Filtres avancés
-- [ ] Mode de comparaison entre profils
-- [ ] API REST pour partage de données
-
-## 📞 Support
-
-Pour toute question ou problème :
-- Ouvrir une issue sur GitHub
-- Consulter la documentation Bun
-- Vérifier les logs de la console
