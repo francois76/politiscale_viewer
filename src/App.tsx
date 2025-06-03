@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Download, Upload, Plus, RotateCcw } from "lucide-react";
-import { exportToCSV, importFromCSV } from "./utils/csvUtils";
+import {
+  exportToCSV,
+  fetchAndValidateCSV,
+  importFromCSV,
+} from "./utils/csvUtils";
+import { useParams } from "react-router";
 
 import Tooltip from "./components/Tooltip";
 
@@ -19,6 +24,8 @@ type MousePosition = { x: number; y: number };
 // Définition du type pour le formulaire
 
 export default function PolitiScalesVisualizer() {
+  const pastebinId = useParams().id;
+  const isViewReadOnly = !!pastebinId;
   const [data, setData] = useState<PolitiScalesEntry[]>([]);
   const [hasLoaded, setHasLoaded] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -34,15 +41,23 @@ export default function PolitiScalesVisualizer() {
 
   // Charger les données du localStorage au démarrage
   useEffect(() => {
-    const savedData = localStorage.getItem("politiscales_data");
-    if (savedData) {
-      try {
-        setData(JSON.parse(savedData));
-      } catch (e) {
-        console.error("Erreur lors du chargement des données:", e);
+    if (isViewReadOnly) {
+      fetchAndValidateCSV(pastebinId).then((data) => {
+        if (data) {
+          setData(data);
+        }
+      });
+    } else {
+      const savedData = localStorage.getItem("politiscales_data");
+      if (savedData) {
+        try {
+          setData(JSON.parse(savedData));
+        } catch (e) {
+          console.error("Erreur lors du chargement des données:", e);
+        }
       }
+      setHasLoaded(true);
     }
-    setHasLoaded(true);
   }, []);
 
   // Sauvegarder les données dans le localStorage
@@ -108,44 +123,46 @@ export default function PolitiScalesVisualizer() {
         </h1>
 
         {/* Barre d'outils */}
-        <div className="flex flex-wrap gap-4 mb-6 justify-center">
-          <button
-            onClick={() => openFormForEdit()}
-            className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors cursor-pointer text-neutral-50"
-          >
-            <Plus size={20} />
-            Ajouter une entrée
-          </button>
+        {!isViewReadOnly && (
+          <div className="flex flex-wrap gap-4 mb-6 justify-center">
+            <button
+              onClick={() => openFormForEdit()}
+              className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors cursor-pointer text-neutral-50"
+            >
+              <Plus size={20} />
+              Ajouter une entrée
+            </button>
 
-          <button
-            onClick={handleExportCSV}
-            disabled={data.length === 0}
-            className="flex items-center gap-2 bg-success-600 hover:bg-success-700 disabled:bg-neutral-600 px-4 py-2 cursor-pointer rounded-lg transition-colors text-neutral-50"
-          >
-            <Download size={20} />
-            Exporter CSV
-          </button>
+            <button
+              onClick={handleExportCSV}
+              disabled={data.length === 0}
+              className="flex items-center gap-2 bg-success-600 hover:bg-success-700 disabled:bg-neutral-600 px-4 py-2 cursor-pointer rounded-lg transition-colors text-neutral-50"
+            >
+              <Download size={20} />
+              Exporter CSV
+            </button>
 
-          <label className="flex items-center gap-2 bg-secondary-600 hover:bg-secondary-700 px-4 py-2 rounded-lg cursor-pointer transition-colors text-neutral-50">
-            <Upload size={20} />
-            Importer CSV
-            <input
-              type="file"
-              accept=".csv"
-              onChange={handleImportCSV}
-              className="hidden"
-            />
-          </label>
+            <label className="flex items-center gap-2 bg-secondary-600 hover:bg-secondary-700 px-4 py-2 rounded-lg cursor-pointer transition-colors text-neutral-50">
+              <Upload size={20} />
+              Importer CSV
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleImportCSV}
+                className="hidden"
+              />
+            </label>
 
-          <button
-            onClick={resetData}
-            disabled={data.length === 0}
-            className="flex items-center gap-2 bg-error-600 hover:bg-error-700 disabled:bg-neutral-600 px-4 py-2 cursor-pointer rounded-lg transition-colors text-neutral-50"
-          >
-            <RotateCcw size={20} />
-            Reset
-          </button>
-        </div>
+            <button
+              onClick={resetData}
+              disabled={data.length === 0}
+              className="flex items-center gap-2 bg-error-600 hover:bg-error-700 disabled:bg-neutral-600 px-4 py-2 cursor-pointer rounded-lg transition-colors text-neutral-50"
+            >
+              <RotateCcw size={20} />
+              Reset
+            </button>
+          </div>
+        )}
 
         {/* Statistiques */}
         <div className="text-center mb-4">
@@ -176,6 +193,7 @@ export default function PolitiScalesVisualizer() {
         <EntryList
           data={data}
           deleteEntry={deleteEntry}
+          isReadOnly={isViewReadOnly}
           onEntryClick={openFormForEdit} // Ajout du handler de clic
         />
 
