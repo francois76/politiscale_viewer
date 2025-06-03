@@ -88,7 +88,7 @@ export function importFromCSV(
 }
 
 export async function fetchAndValidateCSV(pastebinId: string): Promise<PolitiScalesEntry[]> {
-    const response = await fetch(`https://api.allorigins.win/raw?url=https%3A%2F%2Fpastebin.com%2Fraw%2F${pastebinId}`);
+    const response = await fetch(`https://api.allorigins.win/raw?url=https%3A%2F%2Fpastebin.com%2Fraw%2F${pastebinId}?nocache=${Date.now()}`);
     if (!response.ok) {
         throw new Error('Failed to fetch data');
     }
